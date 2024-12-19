@@ -11,13 +11,13 @@
 <div class="container py-5">
     <div class="text-center">
         <h1 class="display-4 text-warning">🎅 You're All Set! 🎁</h1>
-        <p class="lead text-muted">The event is created and is waiting for the participants to find out who they will have to give their gifts to. Share this link with your friends!</p>
+        <p class="lead text-muted">The event is created and is waiting for the participants to find out who they will have to give their gifts to.</p>
     </div>
     <div class="card shadow-lg border-0">
         <div class="card-body text-center">
-            <h3 class="card-title text-primary">Your event link</h3>
+            <h3 class="card-title text-primary">🎄 Share this link with your friends! 🎄</h3>
             <p class="card-text" style="font-size: 1.5rem; font-weight: bold;">
-                🎄 <span class="text-danger">{{ link }}</span> 🎄
+                <a class="text-danger" href="{{ link }}">{{ link }}</a>
             </p>
             <a href="/" class="btn btn-success btn-lg mt-4">Create a New Event</a>
         </div>
