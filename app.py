@@ -42,7 +42,8 @@ def create_event():
         cursor.execute('INSERT INTO events (id, participants) VALUES (?, ?)',
                        (event_id, '\n'.join(participants)))
 
-    return f"Your event link: {request.url_root}event/{event_id}"
+    event_link = f"{request.url_root}event/{event_id}"
+    return render_template('event_ready.html', link=event_link)
 
 @app.route('/event/<event_id>', methods=['GET', 'POST'])
 def assign(event_id):
@@ -63,7 +64,7 @@ def assign(event_id):
             assignment = cursor.fetchone()
 
             if assignment:
-                return render_template('already_assigned.html', receiver=assignment[0])
+                return render_template('assigned.html', receiver=assignment[0])
             else:
                 available = set(participants) - set(
                     row[0] for row in cursor.execute('SELECT receiver FROM assignments WHERE event_id = ?', (event_id,))
@@ -75,7 +76,7 @@ def assign(event_id):
                 cursor.execute('INSERT INTO assignments (event_id, giver, receiver) VALUES (?, ?, ?)',
                                (event_id, giver, receiver))
                 conn.commit()
-                return f"Your assignment: {receiver}"
+                return render_template('assigned.html', receiver=receiver)
 
         return render_template('assign.html', event_id=event_id, participants=participants)
 
