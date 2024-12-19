@@ -34,7 +34,7 @@ def create_event():
     participants = request.form['participants'].strip().split('\n')
     participants = [p.strip() for p in participants if p.strip()]
     if len(participants) < 2:
-        return "You need at least two participants!", 400
+        return render_template('error.html', error_message="You need at least two participants!"), 400
 
     event_id = str(uuid.uuid4())
     with sqlite3.connect(DATABASE) as conn:
@@ -53,7 +53,7 @@ def assign(event_id):
         cursor.execute('SELECT participants FROM events WHERE id = ?', (event_id,))
         row = cursor.fetchone()
         if not row:
-            return "Event not found!", 404
+            return render_template('error.html', error_message="Event not found!"), 404
 
         participants = row[0].split('\n')
 
@@ -70,10 +70,10 @@ def assign(event_id):
                     row[0] for row in cursor.execute('SELECT receiver FROM assignments WHERE event_id = ?', (event_id,))
                 )
                 if giver not in participants:
-                    return "Invalid participant!", 400
+                    return render_template('error.html', error_message="Invalid participant!"), 400
 
                 if not available:
-                    return "All assignments complete!", 400
+                    return render_template('error.html', error_message="All assignments complete!"), 400
 
                 receiver = random.choice(list(available - {giver}))
                 cursor.execute('INSERT INTO assignments (event_id, giver, receiver) VALUES (?, ?, ?)',
@@ -82,6 +82,14 @@ def assign(event_id):
                 return render_template('assigned.html', receiver=receiver)
 
         return render_template('assign.html', event_id=event_id, participants=participants)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html', error_message="Page not found!"), 404
+
+@app.errorhandler(400)
+def bad_request(e):
+    return render_template('error.html', error_message="Bad request!"), 400
 
 if __name__ == '__main__':
     init_db()
