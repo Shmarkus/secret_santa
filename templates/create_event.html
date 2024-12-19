@@ -30,11 +30,22 @@ Blitzen
 Rudolph"></textarea>
                 </div>
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-success btn-lg">Create Event</button>
+                    <button type="submit" class="btn btn-success btn-lg" id="submit-btn">Create Event</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('participants').addEventListener('input', function() {
+        const participants = this.value.trim().split('\n').filter(p => p.trim());
+        const submitBtn = document.getElementById('submit-btn');
+        if (participants.length % 2 === 0 && participants.length >= 2) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    });
+</script>
 </body>
 </html>

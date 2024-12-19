@@ -35,6 +35,8 @@ def create_event():
     participants = [p.strip() for p in participants if p.strip()]
     if len(participants) < 2:
         return render_template('error.html', error_message="You need at least two participants!"), 400
+    if len(participants) % 2 != 0:
+        return render_template('error.html', error_message="You need an even number of participants!"), 400
 
     event_id = str(uuid.uuid4())
     with sqlite3.connect(DATABASE) as conn:
