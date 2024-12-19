@@ -69,8 +69,11 @@ def assign(event_id):
                 available = set(participants) - set(
                     row[0] for row in cursor.execute('SELECT receiver FROM assignments WHERE event_id = ?', (event_id,))
                 )
-                if giver not in participants or giver not in available:
-                    return "Invalid participant or all assignments complete!", 400
+                if giver not in participants:
+                    return "Invalid participant!", 400
+
+                if not available:
+                    return "All assignments complete!", 400
 
                 receiver = random.choice(list(available - {giver}))
                 cursor.execute('INSERT INTO assignments (event_id, giver, receiver) VALUES (?, ?, ?)',
