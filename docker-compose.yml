@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  secret-santa:
+    image: codehouseou/secret_santa:1.0.0
+    ports:
+      - "8080:5000"

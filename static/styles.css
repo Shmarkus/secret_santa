@@ -1,0 +1,31 @@
+body {
+    background-image: url('https://source.unsplash.com/1600x900/?christmas');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #333;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+}
+
+textarea, input {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
+button {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
