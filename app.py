@@ -64,7 +64,7 @@ def assign(event_id):
             assignment = cursor.fetchone()
 
             if assignment:
-                return render_template('assigned.html', receiver=assignment[0])
+                return render_template('assigned.html', receiver='*' * len(assignment[0]))
             else:
                 available = set(participants) - set(
                     row[0] for row in cursor.execute('SELECT receiver FROM assignments WHERE event_id = ?', (event_id,))
