@@ -35,6 +35,8 @@ jobs:
     steps:
     - name: Check out repository
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Set up Git
       run: |
@@ -44,10 +46,7 @@ jobs:
     - name: Create tag
       id: tag
       run: |
-        VERSION=$(git describe --tags $(git rev-list --tags --max-count=1))
-        if [ -z "$VERSION" ]; then
-          VERSION=0.0.0
-        fi
+        VERSION=$(git describe --tags $(git rev-list --tags --max-count=1) || echo "0.0.0")
         VERSION_BITS=(${VERSION//./ })
         MAJOR=${VERSION_BITS[0]}
         MINOR=${VERSION_BITS[1]}
