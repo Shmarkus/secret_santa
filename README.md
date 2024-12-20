@@ -148,3 +148,9 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 Developed by [ChatGPT](https://chatgpt.com).
 
+---
+
+## CI Pipeline Tagging Mechanism
+
+The CI pipeline now includes a tagging mechanism that ensures the versioning starts from `0.0.0` if no tags are found. This prevents the pipeline from failing when no tags are present in the repository.
+
