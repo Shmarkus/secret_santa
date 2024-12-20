@@ -1,9 +1,20 @@
 body {
-    background-image: url('https://source.unsplash.com/1600x900/?christmas');
+    background-image: url('/static/background.png');
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: #333;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: -1;
 }
 
 .card {
