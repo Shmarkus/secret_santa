@@ -1,8 +1,10 @@
 import pytest
 from app import app
+from app import init_db
 
 @pytest.fixture
 def client():
+    init_db()
     with app.test_client() as client:
         yield client
 
