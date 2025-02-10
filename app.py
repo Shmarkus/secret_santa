@@ -25,9 +25,14 @@ def init_db():
             )
         ''')
 
+def get_ad_content():
+    # Placeholder function to return ad content
+    return "Ad content goes here"
+
 @app.route('/')
 def home():
-    return render_template('create_event.html')
+    ad_content = get_ad_content()
+    return render_template('create_event.html', ad_content=ad_content)
 
 @app.route('/create', methods=['POST'])
 def create_event():
